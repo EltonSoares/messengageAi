@@ -4,7 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messengage &lt;=&gt; Whatsapp Login Test</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Messengage &lt;=&gt; Whatsapp Login Test</h1>
@@ -13,12 +43,57 @@
         <button onclick="launchWhatsAppSignup()"
         style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">
         Login with Facebook
-        </button>
+      </button>
     </div>
 
-    <script src="script.js"></script>
-    <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js">
+    <script>
+        function login() {
+            // Seu código JavaScript aqui
+            console.log("Usuário:", document.getElementById("username").value);
+            console.log("Senha:", document.getElementById("password").value);
+
+            // Exemplo de como redirecionar para outra página
+            // window.location.href = "https://www.example.com";
+        }
     </script>
+
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '319795634327906',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v19.0'
+      });
+    };
+  </script>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js">
+  </script>
+
+<script>
+    // Facebook Login with JavaScript SDK
+    function launchWhatsAppSignup() {
+      // Launch Facebook login
+      FB.login(function (response) {
+        if (response.authResponse) {
+          const accessToken = response.authResponse.accessToken;
+          //Use this token to call the debug_token API and get the shared WABA's ID
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      }, {
+        config_id: '<CONFIG_ID>', // configuration ID obtained in the previous step goes here
+        response_type: 'code',     // must be set to 'code' for System User access token
+        override_default_response_type: true,
+        extras: {
+          setup: {
+            ... // Prefilled data can go here
+          }
+        }
+      });
+    }
+  </script>
+
 </body>
 </html>
